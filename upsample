@@ -1,0 +1,10 @@
+def upsamplern(df,feat):    
+    affected = df[df[feat] == 1]
+    unaffected = df[df[feat] == 0]    
+    if len(unaffected) <= len(affected):
+        u_res = resample(unaffected,replace = True,n_samples = len(affected),random_state = 3)        
+        resampled = pd.concat([affected,u_res])    
+    elif len(affected) <= len(unaffected):
+        a_res = resample(affected,replace = True,n_samples = len(unaffected),random_state = 3)        
+        resampled = pd.concat([unaffected,a_res])    
+    return(resampled.reset_index(drop = True))    
